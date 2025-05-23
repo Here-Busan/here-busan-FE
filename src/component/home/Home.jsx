@@ -10,23 +10,35 @@ export default function Home() {
     <div className="container">
       <header className="header">
         <div>Here Busan</div>
-        <button className="button button-primary" onClick={() => navigate("/menu")}>
+        <button
+          className="button button-primary"
+          onClick={() => navigate("/menu")}
+        >
           메뉴
         </button>
       </header>
       <main className="main">환영합니다! 홈 화면입니다.</main>
       <footer className="footer">
-        <button className="button button-info" onClick={() => navigate("/profile")}>
+        <button
+          className="button button-info"
+          onClick={() => navigate("/profile")}
+        >
           프로필
         </button>
-        <button className="button button-primary" onClick={() => navigate("/login")}>
+        <button
+          className="button button-primary"
+          onClick={() => navigate("/login")}
+        >
           로그인
         </button>
-        <button className="button button-danger" onClick={() => {
-          // 로그아웃 처리 후 홈으로 이동 예시
-          localStorage.removeItem("jwt");
-          navigate("/login");
-        }}>
+        <button
+          className="button button-danger"
+          onClick={() => {
+            // 로그아웃 처리 후 홈으로 이동
+            localStorage.removeItem("jwt");
+            navigate("/login");
+          }}
+        >
           로그아웃
         </button>
       </footer>
