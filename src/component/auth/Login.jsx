@@ -1,5 +1,5 @@
 import React from "react";
-import "../../App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { LoginService } from "./LoginService";
 
 const socialLogins = [
@@ -10,8 +10,8 @@ const socialLogins = [
     border: "1px solid #ddd",
     icon: "🔍",
     onClick: () => {
-      alert("준비중")
-    }
+      alert("준비중");
+    },
   },
   {
     name: "카카오",
@@ -27,32 +27,50 @@ const socialLogins = [
     textColor: "#fff",
     border: "none",
     icon: "🟩",
-        onClick: () => {
-      alert("준비중")
-    }
+    onClick: () => {
+      alert("준비중");
+    },
   },
 ];
 
 export default function Login() {
   return (
-    <div className="login-container">
-      <h2 className="login-title">로그인</h2>
-      <div className="login-button-list">
-        {socialLogins.map((login) => (
-          <button
-            key={login.name}
-            className="login-button"
-            style={{
-              background: login.color,
-              color: login.textColor,
-              border: login.border,
-            }}
-            onClick={login.onClick}
-          >
-            <span className="icon">{login.icon}</span>
-            {login.name}로 로그인
-          </button>
-        ))}
+    <div
+      className="w-100"
+      style={{
+        maxWidth: 360,
+        padding: "32px 16px",
+        margin: "40px auto 0 auto",
+      }}
+    >
+      <h2 className="text-center mb-4 fw-bold">로그인</h2>
+      <div
+        className="d-flex flex-column align-items-center justify-content-center"
+        style={{ minHeight: "50vh" }}
+      >
+        <div className="w-100" style={{ maxWidth: 360 }}>
+          {socialLogins.map((login) => (
+            <button
+              key={login.name}
+              className="btn d-flex align-items-center justify-content-center fw-bold mb-3"
+              style={{
+                background: login.color,
+                color: login.textColor,
+                border: login.border,
+                borderRadius: 8,
+                fontSize: 18,
+                height: 48,
+                width: "100%",
+              }}
+              onClick={login.onClick}
+            >
+              <span className="me-2" style={{ fontSize: 22 }}>
+                {login.icon}
+              </span>
+              {login.name}로 로그인
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );

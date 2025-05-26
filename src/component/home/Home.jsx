@@ -1,47 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Home.css";
-import "../../App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import ContentList from "../Content/ContentList";
 
 export default function Home() {
   const navigate = useNavigate();
 
+  // tag별로 추천 및 이벤트 콘텐츠를 관리하기 위한 상태
+  const [recommend, setRecommend] = useState([]);
+  const [event, setEvent] = useState([]);
+
   return (
-    <div className="container">
-      <header className="header">
-        <div>Here Busan</div>
-        <button
-          className="button button-primary"
-          onClick={() => navigate("/menu")}
-        >
-          메뉴
-        </button>
-      </header>
-      <main className="main">환영합니다! 홈 화면입니다.</main>
-      <footer className="footer">
-        <button
-          className="button button-info"
-          onClick={() => navigate("/profile")}
-        >
-          프로필
-        </button>
-        <button
-          className="button button-primary"
-          onClick={() => navigate("/login")}
-        >
-          로그인
-        </button>
-        <button
-          className="button button-danger"
-          onClick={() => {
-            // 로그아웃 처리 후 홈으로 이동
-            localStorage.removeItem("jwt");
-            navigate("/login");
-          }}
-        >
-          로그아웃
-        </button>
-      </footer>
+    <div
+      className="container p-0 flex-grow-1 d-flex flex-column"
+      style={{ position: "relative", height: "100%" }}
+    >
+      <main
+        className="d-flex flex-column align-items-center py-5 flex-grow-1"
+        style={{
+          minHeight: 300,
+          height: "100%",
+          overflowY: "auto",
+        }}
+      >
+        <h1 className="fw-bold mb-4">여행을 떠나볼까요?</h1>
+        <p className="text-center mb-4" style={{ maxWidth: 400 }}>
+          다양한 여행지를 검색하고,
+        </p>
+        <p className="text-center mb-4" style={{ maxWidth: 400 }}>
+          나만의 여행 계획을 세워보세요!
+        </p>
+        {/* recommend */}
+        <div className="w-100 mb-4">
+          <h5 className="fw-bold mb-3">추천</h5>
+          <ContentList tag="recommend" />
+        </div>
+        {/* event */}
+        <div className="w-100 mb-4">
+          <h5 className="fw-bold mb-3">이벤트</h5>
+          <ContentList tag="event" />
+        </div>
+        {/* 전체 */}
+        <div className="w-100">
+          <h5 className="fw-bold mb-3">전체</h5>
+          <ContentList />
+        </div>
+      </main>
     </div>
   );
 }
