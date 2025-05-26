@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./component/home/Home";
+import Login from "./component/auth/Login";
+import Search from "./component/Content/Search";
+import Header from "./component/common/Header";
+import Footer from "./component/common/Footer";
+import Menu from "./component/common/Menu";
+import "bootstrap/dist/css/bootstrap.min.css";
+import MyPage from "./component/form/MyPage";
+import UserInfoForm from "./component/form/UserInfoForm";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <BrowserRouter>
+      <div
+        className="app-mobile-frame d-flex flex-column"
+        style={{ minHeight: "100vh", position: "relative" }}
+      >
+        <Header setMenuOpen={setMenuOpen} />
+        {/* 스크롤 영역을 flex-grow-1로 분리 */}
+        <div style={{ flex: 1, overflowY: "auto", minHeight: 0 }}>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/userinfo" element={<UserInfoForm />} />
+          </Routes>
+        </div>
+        <Footer />
+        <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
