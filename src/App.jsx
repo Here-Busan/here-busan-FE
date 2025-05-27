@@ -9,6 +9,7 @@ import Menu from "./component/common/Menu";
 import "bootstrap/dist/css/bootstrap.min.css";
 import MyPage from "./component/form/MyPage";
 import UserInfoForm from "./component/form/UserInfoForm";
+import MapTest from "./component/Content/MapTest";
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -28,6 +29,7 @@ function App() {
             <Route path="/search" element={<Search />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/userinfo" element={<UserInfoForm />} />
+            <Route path="/maptest" element={<MapTest />} />
           </Routes>
         </div>
         <Footer />

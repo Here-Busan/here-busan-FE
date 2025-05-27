@@ -4,13 +4,13 @@ import { useNavigate } from "react-router-dom";
 // 더미 데이터
 const user = {
   isLoggedIn: true,
-  info: {
-    name: "홍길동", // 실제로는 로그인한 사용자 정보가 있어야 함
-    nickname: "여행자", // 실제로는 로그인한 사용자 정보가 있어야 함
-    count: 5,
-  },
+  // info: {
+  //   name: "홍길동", // 실제로는 로그인한 사용자 정보가 있어야 함
+  //   nickname: "여행자", // 실제로는 로그인한 사용자 정보가 있어야 함
+  //   count: 5,
+  // },
   // 실제로 정보가 없다고 가정
-  // info: null,
+  info: {},
   // 로그인 안 한 상태
   // isLoggedIn: false,
 };

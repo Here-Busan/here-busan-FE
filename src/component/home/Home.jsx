@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <div
-      className="container p-0 flex-grow-1 d-flex flex-column"
+      className="container p-1 flex-grow-1 d-flex flex-column"
       style={{ position: "relative", height: "100%" }}
     >
       <main

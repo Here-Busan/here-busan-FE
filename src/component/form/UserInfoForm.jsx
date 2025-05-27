@@ -5,14 +5,14 @@ function UserInfoForm() {
     name: "",
     nickname: "",
     gender: "",
-    age: "",
+    birthdate: "",
     address: "",
     phone: "",
   });
   const [nicknameChecked, setNicknameChecked] = useState(false);
   const [nicknameMsg, setNicknameMsg] = useState("");
+  const [validated, setValidated] = useState(false);
 
-  // 입력값 변경 핸들러
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({
@@ -25,9 +25,7 @@ function UserInfoForm() {
     }
   };
 
-  // 별명 중복확인 (예시: 실제로는 서버에 요청)
   const handleCheckNickname = () => {
-    // 예시: "admin"이면 중복, 아니면 사용 가능
     if (form.nickname.trim() === "") {
       setNicknameMsg("별명을 입력하세요.");
       setNicknameChecked(false);
@@ -40,22 +38,21 @@ function UserInfoForm() {
     }
   };
 
-  // 폼 제출
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!nicknameChecked) {
-      setNicknameMsg("별명 중복확인을 해주세요.");
+    setValidated(true);
+    if (!e.target.checkValidity() || !nicknameChecked) {
       return;
     }
-    // TODO: 서버로 form 데이터 전송
     alert("회원정보가 저장되었습니다.");
   };
 
   return (
     <form
-      className="p-4"
+      className={`p-4 needs-validation${validated ? " was-validated" : ""}`}
       style={{ maxWidth: 400, margin: "0 auto" }}
       onSubmit={handleSubmit}
+      noValidate
     >
       <h3 className="mb-4">회원 정보 입력</h3>
       <div className="mb-3">
@@ -68,13 +65,16 @@ function UserInfoForm() {
           onChange={handleChange}
           required
         />
+        <div className="invalid-feedback">이름을 입력하세요.</div>
       </div>
       <div className="mb-3">
         <label className="form-label">별명</label>
         <div className="input-group">
           <input
             type="text"
-            className="form-control"
+            className={`form-control${
+              validated && !nicknameChecked ? " is-invalid" : ""
+            }`}
             name="nickname"
             value={form.nickname}
             onChange={handleChange}
@@ -87,6 +87,7 @@ function UserInfoForm() {
           >
             중복확인
           </button>
+          <div className="invalid-feedback">별명 중복확인을 해주세요.</div>
         </div>
         {nicknameMsg && (
           <div
@@ -112,18 +113,22 @@ function UserInfoForm() {
           <option value="female">여성</option>
           <option value="other">기타</option>
         </select>
+        <div className="invalid-feedback">성별을 선택하세요.</div>
       </div>
       <div className="mb-3">
-        <label className="form-label">나이</label>
+        <label className="form-label">생년월일</label>
         <input
-          type="number"
+          type="date"
           className="form-control"
-          name="age"
-          value={form.age}
+          name="birthdate"
+          value={form.birthdate}
           onChange={handleChange}
           min={0}
+          placeholder="생년월일 예시: 19991010"
+          pattern="\d{8}" // YYYYMMDD format
           required
         />
+        <div className="invalid-feedback">생년월일(예시:19991010)</div>
       </div>
       <div className="mb-3">
         <label className="form-label">사는 곳(주소)</label>
@@ -136,6 +141,7 @@ function UserInfoForm() {
           required
           placeholder="예: 부산광역시 해운대구"
         />
+        <div className="invalid-feedback">주소를 입력하세요.</div>
       </div>
       <div className="mb-3">
         <label className="form-label">전화번호</label>
@@ -149,6 +155,7 @@ function UserInfoForm() {
           placeholder="010-1234-5678"
           pattern="^01[0-9]-\d{3,4}-\d{4}$"
         />
+        <div className="invalid-feedback">전화번호를 올바르게 입력하세요.</div>
       </div>
       <button type="submit" className="btn btn-primary w-100">
         저장
