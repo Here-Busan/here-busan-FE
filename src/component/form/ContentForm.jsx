@@ -1,19 +1,24 @@
 import React, { useState, useRef } from "react";
+import { Editor } from "@toast-ui/react-editor";
+import "@toast-ui/editor/toastui-editor.css";
+import "@toast-ui/editor/dist/i18n/ko-kr";
+import color from "@toast-ui/editor-plugin-color-syntax";
+import "tui-color-picker/dist/tui-color-picker.css";
+import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
 
 function ContentForm() {
   const [form, setForm] = useState({
     title: "",
-    content: "",
+    content: "<p></p>",
     location: "",
     lat: "",
     lng: "",
     tags: [],
-    image: null,
   });
   const [tagInput, setTagInput] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const fileInputRef = useRef(null);
+  const editorRef = useRef();
 
   // 지도 검색 (카카오맵 예시)
   const handleSearchLocation = () => {
@@ -69,15 +74,23 @@ function ContentForm() {
     }));
   };
 
-  // 이미지 업로드
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setForm((prev) => ({
-        ...prev,
-        image: file,
-      }));
-    }
+  const toolbar = {
+    items: [
+      ["heading", "bold", "italic", "strike"],
+      ["ul", "ol", "task"],
+      ["image", "link"],
+      ["scrollSync"],
+    ],
+  };
+
+  const onChangeEditor = () => {
+    const editorInstance = editorRef.current.getInstance();
+    const html = editorInstance.getHTML(); // HTML 형식으로 가져오기
+    setForm((prev) => ({
+      ...prev,
+      content: editorInstance.getHTML(),
+    }));
+    console.log("에디터 HTML:", html); // 콘솔에 HTML 출력
   };
 
   // 폼 제출
@@ -85,6 +98,10 @@ function ContentForm() {
     e.preventDefault();
     // TODO: 서버로 form 데이터 전송
     alert("리뷰가 등록되었습니다!");
+    console.log("제목:", form.title);
+    console.log("내용:", form.content);
+    console.log("위치:", form.location);
+    console.log("태그:", form.tags);
   };
 
   return (
@@ -101,12 +118,13 @@ function ContentForm() {
           className="form-control"
           name="title"
           value={form.title}
+          placeholder="제목을 입력하세요"
           onChange={handleChange}
           required
         />
       </div>
       <div className="mb-3">
-        <label className="form-label">위치</label>
+        <label className="form-label">장소</label>
         <div className="input-group mb-2">
           <input
             type="text"
@@ -120,7 +138,7 @@ function ContentForm() {
             className="btn btn-outline-secondary"
             onClick={handleSearchLocation}
           >
-            검색
+            🔍
           </button>
         </div>
         {/* 검색 결과 리스트 */}
@@ -175,9 +193,10 @@ function ContentForm() {
             className="btn btn-outline-primary"
             onClick={handleAddTag}
           >
-            추가
+            +
           </button>
         </div>
+        {/* 태그 표시 */}
         <div>
           {form.tags.map((tag) => (
             <span
@@ -193,34 +212,18 @@ function ContentForm() {
         </div>
       </div>
       <div className="mb-3">
-        <label className="form-label">이미지 첨부</label>
-        <input
-          type="file"
-          className="form-control"
-          accept="image/*"
-          ref={fileInputRef}
-          onChange={handleImageChange}
-        />
-        {form.image && (
-          <div className="mt-2">
-            <img
-              src={URL.createObjectURL(form.image)}
-              alt="미리보기"
-              style={{ maxWidth: "100%", maxHeight: 200 }}
-            />
-          </div>
-        )}
-      </div>
-      <div className="mb-3">
-        <label className="form-label">내용</label>
-        <textarea
-          className="form-control"
-          name="content"
-          value={form.content}
-          onChange={handleChange}
-          rows={8}
-          placeholder="블로그 게시글처럼 자유롭게 작성해 주세요!"
-          required
+        <Editor
+          ref={editorRef}
+          initialValue={form.content || ""}
+          previewStyle="tab"
+          height="300px"
+          initialEditType="wysiwyg"
+          useCommandShortcut={false}
+          hideModeSwitch={true}
+          toolbar={toolbar}
+          onChange={onChangeEditor}
+          plugins={[color]}
+          language="ko-KR" // 한국어 설정
         />
       </div>
       <button type="submit" className="btn btn-primary w-100">

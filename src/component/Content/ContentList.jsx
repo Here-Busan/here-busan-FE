@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 // 콘텐츠 목록 컴포넌트 api
 // 예시
@@ -9,8 +10,8 @@ const contentList = [
     description: "콘텐츠 설명 1",
     location: "해운대구",
     category: "축제",
-    link: "#",
     tag: "recommend", // 추천 태그
+    content: `<p>콘텐츠 내용 1</p>`, // 콘텐츠 내용
   },
   {
     id: 2,
@@ -18,8 +19,8 @@ const contentList = [
     description: "콘텐츠 설명 2",
     location: "부산진구",
     category: "음식",
-    link: "#",
     tag: "recommend", // 추천 태그
+    content: `<p>콘텐츠 내용 2</p>`, // 콘텐츠 내용
   },
   {
     id: 3,
@@ -27,8 +28,8 @@ const contentList = [
     description: "콘텐츠 설명 3",
     location: "동구",
     category: "체험",
-    link: "#",
     tag: "recommend", // 추천 태그
+    content: `<p>콘텐츠 내용 3</p>`, // 콘텐츠 내용
   },
   {
     id: 4,
@@ -36,8 +37,8 @@ const contentList = [
     description: "콘텐츠 설명 4",
     location: "수영구",
     category: "관광",
-    link: "#",
     tag: "event", // 이벤트 태그
+    content: `<p>콘텐츠 내용 4</p>`, // 콘텐츠 내용
   },
   {
     id: 5,
@@ -45,8 +46,8 @@ const contentList = [
     description: "콘텐츠 설명 5",
     location: "해운대구",
     category: "맛집",
-    link: "#",
     tag: "event", // 이벤트 태그
+    content: `<p>콘텐츠 내용 5</p>`, // 콘텐츠 내용
   },
 ];
 
@@ -68,9 +69,13 @@ function ContentList({ tag }) {
             <div className="card-body">
               <h5 className="card-title">{content.title}</h5>
               <p className="card-text">{content.description}</p>
-              <a href={content.link} className="btn btn-primary">
+              <Link
+                to={`/content/${content.id}`}
+                className="btn btn-primary"
+                state={{ content }}
+              >
                 자세히 보기
-              </a>
+              </Link>
             </div>
           </div>
         ))}
