@@ -124,9 +124,11 @@ function UserInfoForm() {
           value={form.birthdate}
           onChange={handleChange}
           min={0}
+          placeholder="생년월일 예시: 19991010"
+          pattern="\d{8}" // YYYYMMDD format
           required
         />
-        <div className="invalid-feedback">나이를 입력하세요.</div>
+        <div className="invalid-feedback">생년월일(예시:19991010)</div>
       </div>
       <div className="mb-3">
         <label className="form-label">사는 곳(주소)</label>

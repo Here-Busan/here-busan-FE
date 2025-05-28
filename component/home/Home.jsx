@@ -30,6 +30,15 @@ export default function Home() {
         <p className="text-center mb-4" style={{ maxWidth: 400 }}>
           나만의 여행 계획을 세워보세요!
         </p>
+        <div className="d-flex gap-3 mb-4">
+          <button
+            className="btn btn-primary"
+            onClick={() => navigate("/register")}
+            style={{ width: 150 }}
+          >
+            작성하기
+          </button>
+        </div>
         {/* recommend */}
         <div className="w-100 mb-4">
           <h5 className="fw-bold mb-3">추천</h5>

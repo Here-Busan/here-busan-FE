@@ -12,6 +12,8 @@ const contentList = [
     category: "축제",
     tag: "recommend", // 추천 태그
     content: `<p>콘텐츠 내용 1</p>`, // 콘텐츠 내용
+    createdAt: "2023-10-01", // 작성일
+    nickname: "작성자1", // 작성자
   },
   {
     id: 2,
@@ -21,6 +23,8 @@ const contentList = [
     category: "음식",
     tag: "recommend", // 추천 태그
     content: `<p>콘텐츠 내용 2</p>`, // 콘텐츠 내용
+    createdAt: "2023-10-01", // 작성일
+    nickname: "작성자1", // 작성자
   },
   {
     id: 3,
@@ -30,6 +34,8 @@ const contentList = [
     category: "체험",
     tag: "recommend", // 추천 태그
     content: `<p>콘텐츠 내용 3</p>`, // 콘텐츠 내용
+    createdAt: "2023-10-01", // 작성일
+    nickname: "작성자1", // 작성자
   },
   {
     id: 4,
@@ -39,6 +45,8 @@ const contentList = [
     category: "관광",
     tag: "event", // 이벤트 태그
     content: `<p>콘텐츠 내용 4</p>`, // 콘텐츠 내용
+    createdAt: "2023-10-01", // 작성일
+    nickname: "작성자1", // 작성자
   },
   {
     id: 5,
@@ -48,6 +56,8 @@ const contentList = [
     category: "맛집",
     tag: "event", // 이벤트 태그
     content: `<p>콘텐츠 내용 5</p>`, // 콘텐츠 내용
+    createdAt: "2023-10-01", // 작성일
+    nickname: "작성자1", // 작성자
   },
 ];
 

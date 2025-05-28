@@ -224,6 +224,8 @@ function ContentForm() {
           onChange={onChangeEditor}
           plugins={[color]}
           language="ko-KR" // 한국어 설정
+          //이미지 핸들러
+          hooks={{ addImageBlobHook: imageHandler }}
         />
       </div>
       <button type="submit" className="btn btn-primary w-100">
